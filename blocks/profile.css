@@ -1,0 +1,69 @@
+.profile{
+    display: flex;
+    align-items: center;
+    padding: 40px 0 0 0;
+    border-top: 1px solid rgba(84, 84, 84, 0.7);
+}
+
+.profile__image{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-right: 30px;
+}
+
+.profile__info{
+    display: flex;
+    flex-wrap: wrap;
+    width: 415px;
+}
+
+.profile__info-name{
+    margin: 0;
+    font-family: "Inter", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 1.1;
+}
+
+.profile__info-button{
+    background: transparent url(../images/Pen.svg) center no-repeat;
+    height: 24px;
+    width: 24px;
+    border: 1px solid #ffffff;
+    align-self: flex-end;
+    margin-bottom: 9px;
+    margin-left: 18px;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.profile__info-button:hover{
+    opacity: 0.6;
+}
+
+.profile__info-description{
+    margin: 0;
+    padding-top: 7px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+.profile__button{
+    background: transparent url(../images/Plussign.svg) center no-repeat;
+    width: 150px;
+    height: 50px;
+    border: 2px solid #ffffff;
+    border-radius: 2px;
+    margin-left: auto;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.profile__button:hover{
+    opacity: 0.6;
+}

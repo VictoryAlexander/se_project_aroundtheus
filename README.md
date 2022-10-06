@@ -17,5 +17,14 @@ This project is made so all the elements are displayed correctly on popular scre
 **Images**  
   
 The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-  
-Good luck and have fun!
+
+**Description**
+This project demonstrated the use of grid, flexbox, and resposive design for different screen sizes.
+Buttons and hover elements were also used.
+
+**Link to GitHub Pages**
+https://victoryalexander.github.io/se_project_aroundtheus/
+
+**Improvements**
+It would be nice to have descriptions for the different parks and landmarks of the U.S. Perhaps we could
+add a hover element over each card that gives off a summary of each park, with a smooth transition when doing so.
