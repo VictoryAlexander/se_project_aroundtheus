@@ -1,7 +1,4 @@
 .card{
-    width: 282px;
-    height: 361px;
-    background: #ffffff;
     border-radius: 10px;
 }
 
@@ -9,6 +6,8 @@
     width: 282px;
     height: 282px;
     border-radius: 10px 10px 0px 0px;
+    display: block;
+    object-fit: cover;
 }
 
 .card__tab{
@@ -16,6 +15,7 @@
     padding: 25px 20px 25px 20px;
     align-items: center;
     justify-content: space-between;
+    background: #ffffff;
 }
 
 .card__tab-title{
@@ -38,6 +38,7 @@
     border: none;
     transition-duration: 0.5s;
     cursor: pointer;
+    flex-shrink: 1;
 }
 
 .card__tab-button:hover{

@@ -15,7 +15,6 @@
 .profile__info{
     display: flex;
     flex-wrap: wrap;
-    width: 415px;
 }
 
 .profile__info-name{
@@ -46,7 +45,7 @@
 .profile__info-description{
     margin: 0;
     padding-top: 7px;
-    font-family: "Inter";
+    font-family: "Inter", Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -59,11 +58,61 @@
     height: 50px;
     border: 2px solid #ffffff;
     border-radius: 2px;
-    margin-left: auto;
+    margin-left: 165px;
     transition-duration: 0.5s;
     cursor: pointer;
 }
 
 .profile__button:hover{
     opacity: 0.6;
+}
+
+@media screen and (max-width:935px) {
+    .profile__image{
+        margin-right: 15px;
+    }
+    .profile__info-name{
+        font-size: 32px;
+    }
+    .profile__info-button{
+        margin-left: 9px;
+        margin-bottom: 6px;
+    }
+    .profile__info-description{
+        font-size: 16px;
+    }
+    .profile__button{
+        width: 100px;
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width:636px) {
+    .profile{
+        flex-direction: column;
+    }
+    .profile__image{
+        margin: 0;
+    }
+    .profile__info{
+        justify-content: center;
+        padding: 36px 0 0 0;
+    }
+    .profile__info-name{
+        font-size: 22px;
+    }
+    .profile__info-button{
+        background-size: 7.5px 7.5px;
+        width: 18px;
+        height: 18px;
+        margin: 0 15px 4px 10px;
+    }
+    .profile__info-description{
+        padding: 10px 0 36px 0;
+        font-size: 14px;
+    }
+    .profile__button{
+        width: 282px;
+        background-size: 16px 16px;
+    }
 }
