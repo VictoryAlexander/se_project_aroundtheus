@@ -1,5 +1,6 @@
 .card{
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .card__image{
@@ -38,7 +39,7 @@
     border: none;
     transition-duration: 0.5s;
     cursor: pointer;
-    flex-shrink: 1;
+    flex-shrink: 0;
 }
 
 .card__tab-button:hover{
