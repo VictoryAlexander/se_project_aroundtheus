@@ -21,6 +21,6 @@ const initialCards = [
     },
     {
       name: 'Lago di Braies',
-      link: '../images/lago-di-braies'
+      link: '../images/lago-di-braies.jpg'
     }
 ];
