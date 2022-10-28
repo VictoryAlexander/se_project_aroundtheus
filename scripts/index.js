@@ -22,5 +22,20 @@ const initialCards = [
     {
       name: 'Lago di Braies',
       link: '../images/lago-di-braies.jpg'
-    },
+    }
 ];
+
+let editButton = document.querySelector(".profile__info-button");
+let profileEdit = document.querySelector(".modal");
+let closeButton = document.querySelector(".modal-button");
+
+function openModal() {
+    profileEdit.classList.add("modal_opened");
+}
+
+function closeModal() {
+    profileEdit.classList.remove("modal_opened");
+}
+
+editButton.addEventListener("click", openModal);
+closeButton.addEventListener("click", closeModal);
