@@ -19,6 +19,7 @@
     padding: 0;
     margin-left: 430px;
     transition-duration: 0.5s;
+    cursor: pointer;
 }
 
 .modal-button:hover{
@@ -88,6 +89,7 @@
     color: #FFFFFF;
     border-radius: 2px;
     transition-duration: 0.5s;
+    cursor: pointer;
 }
 
 .modal__container-button:hover{
