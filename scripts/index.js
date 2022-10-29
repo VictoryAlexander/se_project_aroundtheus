@@ -65,11 +65,11 @@ function closeModal() {
 editProfileButton.addEventListener("click", openModal);
 
 function fillProfileForm() {
+    profileNameInput.value = profileName.textContent;
     profileDescriptionInput.value = profileDescription.textContent;
 }
 
 editProfileButton.addEventListener("click", () => {
-    profileNameInput.value = profileName.textContent;
     fillProfileForm();
 
     openModal();
