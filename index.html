@@ -35,72 +35,15 @@
         </section>
         <section class="cards">
           <ul class="cards__list">
-            <li class="card">
-              <img
-              src="./images/yosemite-valley.jpg"
-              alt="Yosemite Valley"
-              class="card__image"
-              />
-              <div class="card__tab">
-                <h2 class="card__tab-title">Yosemite Valley</h2>
-                <button type="button" class="card__tab-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-              src="./images/lake-louise.jpg"
-              alt="Lake Louise"
-              class="card__image"
-              />
-              <div class="card__tab">
-                <h2 class="card__tab-title">Lake Louis</h2>
-                <button type="button" class="card__tab-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-              src="./images/bald-mountains.jpg"
-              alt="Bald Mountains"
-              class="card__image"
-              />
-              <div class="card__tab">
-                <h2 class="card__tab-title">Bald Mountains</h2>
-                <button type="button" class="card__tab-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-              src="./images/latemar.jpg"
-              alt="Latemar"
-              class="card__image"
-              />
-              <div class="card__tab">
-                <h2 class="card__tab-title">Latemar</h2>
-                <button type="button" class="card__tab-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-              src="./images/vanoise-national-park.jpg"
-              alt="Vanoise National Park"
-              class="card__image"
-              />
-              <div class="card__tab">
-                <h2 class="card__tab-title">Vanoise National Park</h2>
-                <button type="button" class="card__tab-button"></button>
-              </div>
-            </li>
-            <li class="card">
-              <img
-              src="./images/lago-di-braies.jpg"
-              alt="Lago di Braies"
-              class="card__image"
-              />
-              <div class="card__tab">
-                <h2 class="card__tab-title">Lago di Braies</h2>
-                <button type="button" class="card__tab-button"></button>
-              </div>
-            </li>
+            <template id="card-template">
+              <li class="card">
+                <img class="card__image" alt="" src="">
+                <div class="card__tab">
+                  <h2 class="card__tab-title"></h2>
+                  <button type="button" class="card__tab-button"></button>
+                </div>
+              </li>
+            </template>
           </ul>
         </section>
       </main>
@@ -110,7 +53,7 @@
       <div class="modal">
         <button type="button" class="modal-button"></button>
         <form class="modal__container">
-          <h2 class="modal__container-title">Edit profile</h2>
+          <h3 class="modal__container-title">Edit profile</h3>
           <input type="text" placeholder="Name" class="modal__container-name">
           <input type="text" placeholder="Description" class="modal__container-description">
           <button type="button" class="modal__container-button">Save</button>
