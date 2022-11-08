@@ -10,8 +10,8 @@
 
 .modal_opened{
     visibility: visible;
-    opacity: 1; 
-    pointer-events: all; 
+    opacity: 1;
+    pointer-events: all;
     transition: visibility 0s, opacity 0.5s linear;
 }
 
