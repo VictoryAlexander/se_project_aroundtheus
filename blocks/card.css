@@ -1,6 +1,7 @@
 .card{
     border-radius: 10px;
     overflow: hidden;
+    position: relative;
 }
 
 .card__image{
@@ -9,6 +10,23 @@
     border-radius: 10px 10px 0px 0px;
     display: block;
     object-fit: cover;
+    cursor: pointer;
+}
+
+.card__delete-button{
+    background: transparent url(../images/Trash.svg) center no-repeat;
+    border: none;
+    width: 18px;
+    height: 19px;
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+
+.card__delete-button:hover{
+    opacity: 0.5;
 }
 
 .card__tab{
@@ -40,6 +58,10 @@
     transition-duration: 0.5s;
     cursor: pointer;
     flex-shrink: 0;
+}
+
+.card__tab-button_filled{
+    background: transparent url(../images/HeartFilled.svg) center no-repeat;
 }
 
 .card__tab-button:hover{
