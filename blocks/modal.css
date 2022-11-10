@@ -47,7 +47,7 @@
     cursor: pointer;
 }
 
-.modal-button:hover{
+.modal__close-button:hover{
     opacity: 0.6;
 }
 
