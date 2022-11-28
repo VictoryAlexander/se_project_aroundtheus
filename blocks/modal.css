@@ -125,10 +125,6 @@
     margin: 0 36px 0 36px;
 }
 
-.modal__error_visible {
-
-}
-
 @media screen and (max-width: 636px) {
     .modal__close-button{
         width: 26px;
