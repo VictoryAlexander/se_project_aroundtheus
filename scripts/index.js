@@ -30,8 +30,8 @@ const editProfilePopup = document.querySelector("#editModal");
 const profilePopup = document.querySelector("#edit-profile-form");
 const profileName = document.querySelector(".profile__info-name");
 const profileDescription = document.querySelector(".profile__info-description");
-const profileNameInput = document.querySelector(".modal__container-name");
-const profileDescriptionInput = document.querySelector(".modal__container-description");
+const profileNameInput = document.querySelector(".modal__container-input_name");
+const profileDescriptionInput = document.querySelector(".modal__container-input_description");
 
 const cardList = document.querySelector(".cards__list");
 const cardTemplate = document.querySelector("#card-template").content.firstElementChild;
@@ -46,12 +46,31 @@ const previewImageElementDescription = document.querySelector(".modal-preview-de
 
 const closeButtons = document.querySelectorAll(".modal__close-button");
 
+function outsideCloseModal(event, popup) {
+  if (event.target.classList.contains("modal") || event.target.contains("modal_opened")) {
+    closeModal(popup);
+  };
+};
+
+function escCloseModal(event, popup) {
+  event.preventDefault();
+  if (event.key === "Escape") {
+    closeModal(popup);
+  };
+};
+
 function openModal(popup) {
   popup.classList.add("modal_opened");
+
+  popup.addEventListener("mousedown", (event) => outsideCloseModal(event, popup));
+  document.addEventListener("keyup", (event) => escCloseModal(event, popup));
 };
 
 function closeModal(popup) {
   popup.classList.remove("modal_opened");
+
+  popup.removeEventListener("click", (event) => outsideCloseModal(event, popup));
+  document.removeEventListener("keyup", (event) => escCloseModal(event, popup));
 };
 
 function createCard(data) {
@@ -75,7 +94,7 @@ function createCard(data) {
       previewImageElementDescription.textContent = data.name;
       openModal(previewImageModalWindow);
     });
-
+    
     return cardElement;
 };
 
@@ -89,6 +108,10 @@ function fillProfileForm() {
   profileNameInput.value = profileName.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
 }
+
+function checkOpenModal() {
+  
+};
 
 initialCards.forEach(renderCard);
 
