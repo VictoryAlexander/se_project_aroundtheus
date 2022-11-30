@@ -46,31 +46,31 @@ const previewImageElementDescription = document.querySelector(".modal-preview-de
 
 const closeButtons = document.querySelectorAll(".modal__close-button");
 
-function outsideCloseModal(event, popup) {
-  if (event.target.classList.contains("modal") || event.target.contains("modal_opened")) {
-    closeModal(popup);
+function outsideCloseModal(event) {
+  if (event.target === event.currentTarget) {
+    closeModal(event.target);
   };
 };
 
-function escCloseModal(event, popup) {
-  event.preventDefault();
+function escCloseModal(event) {
   if (event.key === "Escape") {
-    closeModal(popup);
+    const openedPopup = document.querySelector(".modal_opened");
+    closeModal(openedPopup);
   };
 };
 
 function openModal(popup) {
   popup.classList.add("modal_opened");
 
-  popup.addEventListener("mousedown", (event) => outsideCloseModal(event, popup));
-  document.addEventListener("keyup", (event) => escCloseModal(event, popup));
+  popup.addEventListener("mousedown", outsideCloseModal);
+  document.addEventListener("keyup", escCloseModal);
 };
 
 function closeModal(popup) {
   popup.classList.remove("modal_opened");
 
-  popup.removeEventListener("click", (event) => outsideCloseModal(event, popup));
-  document.removeEventListener("keyup", (event) => escCloseModal(event, popup));
+  popup.removeEventListener("mousedown", outsideCloseModal);
+  document.removeEventListener("keyup", escCloseModal);
 };
 
 function createCard(data) {
@@ -109,10 +109,6 @@ function fillProfileForm() {
   profileDescriptionInput.value = profileDescription.textContent;
 }
 
-function checkOpenModal() {
-  
-};
-
 initialCards.forEach(renderCard);
 
 closeButtons.forEach((button) => {
@@ -122,12 +118,6 @@ closeButtons.forEach((button) => {
 
 editProfileButton.addEventListener("click", () => {
   openModal(editProfilePopup);
-});
-
-editProfileButton.addEventListener("click", () => {
-    fillProfileForm();
-
-    openModal(editProfilePopup);
 });
 
 profilePopup.addEventListener("submit", (event) => {
@@ -149,6 +139,7 @@ addCardForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const name = event.target.title.value;
   const link = event.target.link.value;
+  const inputElements = document.querySelectorAll(config.inputSelector);
   renderCard({
     name,
     link
@@ -156,4 +147,5 @@ addCardForm.addEventListener("submit", (event) => {
   event.target.reset();
 
   closeModal(addPopup);
+  enableValidation(config);
 });

@@ -107,12 +107,13 @@
     cursor: pointer;
 }
 
-.modal__container-button:hover{
+.modal__container-button:hover:not(:disabled) {
     opacity: 0.8;
 }
 
 .modal__container-button_disabled {
     background: #e5e5e5;
+    cursor: default;
 }
 
 .modal__error {
