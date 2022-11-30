@@ -52,6 +52,7 @@
         <p class="footer__copyright">&copy; 2022 Around The U.S.</p>
       </footer>
       <div class="modal" id="editModal">
+        <div>
           <button type="button" class="modal__close-button"></button>
           <form class="modal__container" id="edit-profile-form">
             <h3 class="modal__container-title">Edit profile</h3>
@@ -77,8 +78,10 @@
             <span class="modal__error" id="description-error"></span>
             <button type="submit" class="modal__container-button">Save</button>
           </form>
+        </div>
       </div>
       <div class="modal" id="addModal">
+        <div>
           <button type="button" class="modal__close-button"></button>
           <form class="modal__container" id="add-card-form">
             <h3 class="modal__container-title">New place</h3>
@@ -102,8 +105,9 @@
               required
             />
             <span class="modal__error" id="link-error"></span>
-            <button type="submit" class="modal__container-button modal__container-button_disabled">Create</button>
+            <button type="submit" class="modal__container-button modal__container-button_disabled" id="create">Create</button>
           </form>
+        </div>
       </div>
       <div class="modal" id="imageModal">
         <div class="modal__content">

@@ -117,6 +117,8 @@ closeButtons.forEach((button) => {
 });
 
 editProfileButton.addEventListener("click", () => {
+  fillProfileForm();
+
   openModal(editProfilePopup);
 });
 
@@ -146,5 +148,7 @@ addCardForm.addEventListener("submit", (event) => {
   event.target.reset();
 
   closeModal(addPopup);
-  enableValidation(config);
+  
+  const cardFormSubmitButton = document.querySelector("#create");
+  toggleButtonState([event.target.title, event.target.link], cardFormSubmitButton, config);
 });
