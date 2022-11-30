@@ -139,7 +139,6 @@ addCardForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const name = event.target.title.value;
   const link = event.target.link.value;
-  const inputElements = document.querySelectorAll(config.inputSelector);
   renderCard({
     name,
     link
