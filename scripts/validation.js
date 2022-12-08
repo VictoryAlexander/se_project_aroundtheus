@@ -34,16 +34,13 @@ function hasInvalidInput(inputList) {
 }
 
 function toggleButtonState(inputElements, submitButton, {inactiveButtonClass}) {
-
   if (hasInvalidInput(inputElements)) {
     submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
-    return;
-  }
-
+  } else {
   submitButton.classList.remove(inactiveButtonClass);
   submitButton.disabled = false;
-
+  }
 }
 
 function setEventListeners(formElement, options) {
