@@ -32,4 +32,6 @@ const validationSettings = {
   inputErrorClass: "modal__container-input_type_error",
 };
 
-export {initialCards, validationSettings};
+const cardList = "cards__list";
+
+export {initialCards, validationSettings, cardList};

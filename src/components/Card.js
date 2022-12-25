@@ -1,16 +1,15 @@
-import {outsideCloseModal, escCloseModal, openModal, closeModal} from "./utils.js";
-
 class Card {
-  constructor(data, cardSelector) {
+  constructor( data, { handleCardClick }, cardSelector ) {
     this._name = data.name;
     this._link = data.link;
+    this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
   }
 
   _setEventListeners() {
     this._cardLikeButton.addEventListener("click", this._handleLikeButton);
     this._cardDeleteButton.addEventListener("click", this._handleDeleteButton);
-    this._imageElement.addEventListener("click", this._handlePreviewImage);
+    this._imageElement.addEventListener("click", this._handleCardClick);
   }
 
   _handleLikeButton = () => {
@@ -20,16 +19,6 @@ class Card {
   _handleDeleteButton = () => {
     this._cardElement.remove();
     this._cardElement = null;
-  }
-
-  _handlePreviewImage = () => {
-    this._previewImageElement = document.querySelector(".modal-preview-image");
-    this._previewImageElement.src = this._link;
-    this._previewImageElement.alt = this._name;
-    this._previewImageElementDescription = document.querySelector(".modal-preview-description");
-    this._previewImageElementDescription.textContent = this._name;
-    this._previewImageModalWindow = document.querySelector("#imageModal");
-    openModal(this._previewImageModalWindow);
   }
 
   _getTemplate() {
