@@ -10,6 +10,31 @@
     height: 120px;
     border-radius: 50%;
     margin-right: 30px;
+    position: relative;
+}
+
+.profile__overlay{
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-color: black;
+    opacity: 0;
+}
+
+.profile__overlay:hover{
+    opacity: 0.8;
+    transition: 0.5s ease;
+}
+
+.profile__overlay-button{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent url(../images/EditProfileIcon.svg) center no-repeat;
+    height: 26px;
+    width: 26px;
+    border: none;
 }
 
 .profile__info{

@@ -25,6 +25,9 @@
           alt="Avatar"
           class="profile__image"
           />
+          <div class="profile__overlay">
+            <button type="button" class="profile__overlay-button"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__info-name">Jacques Cousteau</h1>
             <button type="button" class="profile__info-button"></button>
@@ -40,7 +43,10 @@
                 <button type="button" class="card__delete-button"></button>
                 <div class="card__tab">
                   <h2 class="card__tab-title"></h2>
-                  <button type="button" class="card__tab-button"></button>
+                  <div class="card__like">
+                    <button type="button" class="card__like-button"></button>
+                    <h3 class="card__like-number">0</h3>
+                  </div>
                 </div>
               </li>
             </template>
@@ -77,7 +83,7 @@
               required
             />
             <span class="modal__error" id="description-error"></span>
-            <button type="submit" class="modal__container-button">Save</button>
+            <button type="submit" class="modal__container-button" id="edit-save">Save</button>
           </form>
         </div>
       </div>
@@ -115,6 +121,32 @@
           <button type="button" class="modal__close-button"></button>
           <img class="modal-preview-image" alt=" " src=" " id="preview-image">
           <p class="modal-preview-description"></p>
+        </div>
+      </div>
+      <div class="modal" id="deleteCardModal">
+        <div class="modal__content">
+          <button type="button" class="modal__close-button"></button>
+          <form class="modal__container modal__container_delete-card">
+            <h3 class="modal__container-title modal__container-title_confirm">Are you sure?</h3>
+            <button type="submit" class="modal__container-button">Yes</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal" id="change-image-modal">
+        <div class="modal__content">
+          <button type="button" class="modal__close-button"></button>
+          <form class="modal__container modal__container_change-image" id="change-image-form">
+            <h3 class="modal__container-title">Change Profile Picture</h3>
+            <input
+              id="profile-link"
+              type="url"
+              placeholder="Image link"
+              name="link"
+              class="modal__container-input modal__container-input_description"
+              required
+            />
+            <button type="submit" class="modal__container-button" id="confirm-save">Save</button>
+          </form>
         </div>
       </div>
     </div>

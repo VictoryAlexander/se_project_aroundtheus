@@ -50,7 +50,7 @@
     overflow: hidden;
 }
 
-.card__tab-button{
+.card__like-button{
     background: transparent url(../images/Heart.svg) center no-repeat;
     width: 21px;
     height: 18px;
@@ -60,10 +60,21 @@
     flex-shrink: 0;
 }
 
-.card__tab-button_filled{
+.card__like-number{
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.2;
+    text-align: center;
+    color: #000000;
+}
+
+.card__like-button_filled{
     background: transparent url(../images/HeartFilled.svg) center no-repeat;
 }
 
-.card__tab-button:hover{
+.card__like-button:hover{
     opacity: 0.5;
 }
