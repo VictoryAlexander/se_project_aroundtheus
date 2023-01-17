@@ -12,6 +12,10 @@ class Card {
     this._userId = userId;
   }
 
+  getId() {
+    return this._id;
+  }
+
   _setEventListeners() {
     this._cardLikeButton.addEventListener("click", this._handleLikeClick);
     this._cardDeleteButton.addEventListener("click", this._handleDeleteClick);
@@ -55,10 +59,17 @@ class Card {
     this._imageElement = this._cardElement.querySelector(".card__image");
     const cardTitle = this._cardElement.querySelector(".card__tab-title");
     this._cardDeleteButton = this._cardElement.querySelector(".card__delete-button");
+    this._cardLikes = this._cardElement.querySelector(".card__like-number");
     this._imageElement.src = this._link;
     this._imageElement.alt = this._name;
     cardTitle.textContent = this._name;
     this._setEventListeners();
+    this._handleLikeButton();
+
+    if (this._ownerId !== this._userId) {
+      this._cardDeleteButton.remove();
+    }
+
     return this._cardElement;
   }
 

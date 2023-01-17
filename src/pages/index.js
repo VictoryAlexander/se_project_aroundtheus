@@ -8,6 +8,7 @@ import {initialCards, validationSettings, selectors} from "../utils/constants.js
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Api from "../components/Api.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-12",
@@ -17,18 +18,16 @@ const api = new Api({
   }
 });
 
+let cardSection;
+let userId;
+
 const userInfo = new UserInfo({
   userNameSelector: selectors.profileName,
   userJobSelector: selectors.profileDescription,
   userImageSelector: selectors.profileImage
 });
 
-const confirmForm = new PopupWithForm({
-  popupSelector: selectors.deleteCardPopup,
-  handleFormSubmit: () => {
-    confirmForm.close(); /* currently does not delete card on submit*/
-  }
-});
+const confirmForm = new PopupWithConfirm(selectors.deleteCardPopup);
 
 const renderCard = (item) => {
   const card = new Card(
@@ -37,67 +36,65 @@ const renderCard = (item) => {
       imagePopup.open(item);
     },
     handleDeleteClick: () => {
-      confirmForm.open(() => {
-        renderSave(confirmPopupButton, true);
+      const cardId = card.getId();
+      confirmForm.open();
+      confirmForm._onSubmit(() => {
         api
-          .deleteCard(item._id)
+          .deleteCard(cardId)
           .then(() => {
-            confirmForm.close();
             card.handleDeleteButton();
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-          .finally(() => {
-            renderSave(confirmPopupButton, false);
-          })
-      });
+            confirmForm.close();
+          });
+      })
     },
     handleLikeClick: () => {
+      const cardId = card.getId();
       if (card.isLiked()) {
         api
-          .removeLike(card._id)
-          .then((response) => {
-            card.updateLikes(response.likes);
+          .removeLike(cardId)
+          .then((res) => {
+            card.updateLikes(res.likes);
           })
-          .catch((err) => console.log(err));
-      } else {
-        api
-          .addLike(card._id)
-          .then((response) => {
-            card.updateLikes(response.likes);
-          })
-          .catch((err) => console.log(err));
       }
     }
   }, 
     selectors.cardTemplate,
     userId
   );
-  const cardElement = card.getView();
-  cardRenderer.addItem(cardElement);
+  return card.getView();
 }
 
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, initialCards]) => {
-    userInfo.setUserInfo(userData.name, userData.about);
-    userInfo.setImage(userData.image);
-    let userId = userData._id;
-    const cardRenderer = new Section({
-      renderer: renderCard,
+api
+  .getInitialCards()
+  .then((res) => {
+    cardSection = new Section({
+      items: res,
+      renderer: (data) => {
+        const cardElement = renderCard(data);
+        cardSection.addItem(cardElement);
+      }
     },
-      selectors.cardList
-    );
-    cardRenderer.renderItems(initialCards.reverse());
+    selectors.cardList
+    )
+    cardSection.renderItems();
   })
-  .catch((err) => console.log(err));
+
+api
+  .getUserInfo()
+  .then((res) => {
+    userInfo.setUserInfo({
+      name: res.name,
+      about: res.about
+    });
+    userInfo.setImage(res.avatar);
+    userId = res._id;
+  })
 
 const imagePopup = new PopupWithImage(selectors.previewImage);
 
 const editForm = new PopupWithForm({ 
   popupSelector: selectors.editPopup,
   handleFormSubmit: (values) => {
-    renderSave(editFormButton, true);
     api
       .editProfile(values)
       .then(() => {
@@ -105,26 +102,18 @@ const editForm = new PopupWithForm({
         editForm.close();
         editFormValidator.toggleButtonState();
       })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        renderSave(editFormButton, false);
-      });
   }
 });
 const addForm = new PopupWithForm({
-  popupSelector: selectors.addPopup, 
+  popupSelector: selectors.addPopup,
   handleFormSubmit: (item) => {
     renderSave(createFormButton, true);
     api
       .addCard(item)
-      .then(() => {
-        renderCard(item);
+      .then((res) => {
+        renderCard(res);
         addForm.close();
         addFormValidator.toggleButtonState();
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        renderSave(createFormButton, false);
       });
   }
 });
@@ -134,16 +123,12 @@ const changeImageForm = new PopupWithForm({
   handleFormSubmit: (item) => {
     renderSave(confirmPopupButton, true);
     api
-      .editProfile(item) //change this later, this doesnt do anything atm
+      .updateImage(item) 
       .then(() => {
         userInfo.setImage(item);
         changeImageForm.close();
         changeFormValidator.toggleButtonState();
       })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        renderSave(confirmPopupButton, false);
-      });
   }
 })
 
@@ -162,7 +147,7 @@ const profileAboutInput = document.querySelector("#description");
 const profileImageInput = document.querySelector("#profile-link");
 const changeProfileImageButton = document.querySelector(".profile__overlay-button");
 const confirmPopupButton = document.querySelector("#confirm-save");
-const editFormButton = document.querySelector("#edit-save");
+//const editFormButton = document.querySelector("#edit-save");
 const createFormButton = document.querySelector("#create");
 
 function fillProfileForm() {

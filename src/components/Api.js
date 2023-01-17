@@ -23,7 +23,7 @@ class Api {
   getUserInfo() {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "GET",
-      header: this.headers
+      headers: this.headers
     })
       .then((res) => {
         if (res.ok) {
@@ -59,7 +59,7 @@ class Api {
   addCard(data) {
     return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
-      header: this.headers,
+      headers: this.headers,
       body: JSON.stringify({
         name: data.name,
         link: data.link
@@ -122,6 +122,29 @@ class Api {
       .catch((err) => {
         console.log(err);
       })
+  }
+
+  updateImage(data) {
+    return fetch(`${this.baseUrl}/users/me/${data}`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: avatar.link
+      }),
+    })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error ${res.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  } 
+
+  getAppInfo = () => {
+    return Promise.all([this.getInitialCards, this.getUserInfo]);
   }
 }
 
