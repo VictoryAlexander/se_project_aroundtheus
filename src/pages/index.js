@@ -4,10 +4,10 @@ import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import {FormValidator} from "../components/FormValidator.js";
-import {initialCards, validationSettings, selectors} from "../utils/constants.js";
+import {validationSettings, selectors} from "../utils/constants.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import Api from "../components/Api.js";
+import Api from "../utils/Api.js";
 import PopupWithConfirm from "../components/PopupWithConfirm.js";
 
 const api = new Api({
@@ -27,9 +27,9 @@ const userInfo = new UserInfo({
   userImageSelector: selectors.profileImage
 });
 
-const confirmForm = new PopupWithConfirm(selectors.deleteCardPopup);
+const confirmForm = new PopupWithConfirm(selectors.deleteCardPopup, "Deleting...");
 
-const renderCard = (item) => {
+const createCard = (item) => {
   const card = new Card(
     item, {
     handleCardClick: () => {
@@ -38,13 +38,18 @@ const renderCard = (item) => {
     handleDeleteClick: () => {
       const cardId = card.getId();
       confirmForm.open();
-      confirmForm._onSubmit(() => {
+      confirmForm.setSubmitCallback(() => {
+        confirmForm.showLoading();
         api
           .deleteCard(cardId)
           .then(() => {
             card.handleDeleteButton();
             confirmForm.close();
-          });
+          })
+          .catch((err) => console.log(err))
+          .finally(() => {
+            confirmForm.hideLoading();
+          })
       })
     },
     handleLikeClick: () => {
@@ -55,6 +60,14 @@ const renderCard = (item) => {
           .then((res) => {
             card.updateLikes(res.likes);
           })
+          .catch((err) => console.log(err));
+      } else {
+        api
+          .addLike(cardId)
+          .then((res) => {
+            card.updateLikes(res.likes);
+          })
+          .catch((err) => console.log(err));
       }
     }
   }, 
@@ -65,36 +78,38 @@ const renderCard = (item) => {
 }
 
 api
-  .getInitialCards()
-  .then((res) => {
+  .getAppInfo()
+  .then(([cardRes, userRes]) => {
     cardSection = new Section({
-      items: res,
+      items: cardRes,
       renderer: (data) => {
-        const cardElement = renderCard(data);
+        const cardElement = createCard(data);
         cardSection.addItem(cardElement);
       }
     },
     selectors.cardList
     )
     cardSection.renderItems();
-  })
-
-api
-  .getUserInfo()
-  .then((res) => {
     userInfo.setUserInfo({
-      name: res.name,
-      about: res.about
+      name: userRes.name,
+      about: userRes.about
     });
-    userInfo.setImage(res.avatar);
-    userId = res._id;
+    userInfo.setImage(userRes.avatar);
+    userId = userRes._id;
   })
+  .catch((err) => console.log(err))
+
+function renderCard(data) {
+  const newCard = createCard(data);
+  cardSection.addItem(newCard);
+}
 
 const imagePopup = new PopupWithImage(selectors.previewImage);
 
 const editForm = new PopupWithForm({ 
   popupSelector: selectors.editPopup,
   handleFormSubmit: (values) => {
+    editForm.showLoading();
     api
       .editProfile(values)
       .then(() => {
@@ -102,26 +117,36 @@ const editForm = new PopupWithForm({
         editForm.close();
         editFormValidator.toggleButtonState();
       })
-  }
+      .catch((err) => console.log(err))
+      .finally(() => {
+        editForm.hideLoading();
+      })
+  },
+  loadingButtonText: "Saving..."
 });
 const addForm = new PopupWithForm({
   popupSelector: selectors.addPopup,
   handleFormSubmit: (item) => {
-    renderSave(createFormButton, true);
+    addForm.showLoading();
     api
       .addCard(item)
       .then((res) => {
         renderCard(res);
         addForm.close();
         addFormValidator.toggleButtonState();
-      });
-  }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        addForm.hideLoading();
+      })
+  },
+  loadingButtonText: "Saving..."
 });
 
 const changeImageForm = new PopupWithForm({
   popupSelector: selectors.changeImagePopup,
   handleFormSubmit: (item) => {
-    renderSave(confirmPopupButton, true);
+    changeImageForm.showLoading()
     api
       .updateImage(item) 
       .then(() => {
@@ -129,7 +154,12 @@ const changeImageForm = new PopupWithForm({
         changeImageForm.close();
         changeFormValidator.toggleButtonState();
       })
-  }
+      .catch((err) => console.log(err))
+      .finally(() => {
+        changeImageForm.hideLoading();
+      })
+  },
+  loadingButtonText: "Saving..."
 })
 
 const editFormValidator = new FormValidator(validationSettings, selectors.editFormElement);
@@ -146,24 +176,16 @@ const profileNameInput = document.querySelector("#name");
 const profileAboutInput = document.querySelector("#description");
 const profileImageInput = document.querySelector("#profile-link");
 const changeProfileImageButton = document.querySelector(".profile__overlay-button");
-const confirmPopupButton = document.querySelector("#confirm-save");
-//const editFormButton = document.querySelector("#edit-save");
-const createFormButton = document.querySelector("#create");
 
 function fillProfileForm() {
   const profileInfo = userInfo.getUserInfo();
   profileNameInput.value = profileInfo.name;
   profileAboutInput.value = profileInfo.about;
-  profileImageInput.value = profileInfo.image;
 }
 
-function renderSave(button, saving) {
-  let initialText = button.textContent;
-  if (saving) {
-    button.textContent = "Saving...";
-  } else {
-    button.textContent = initialText;
-  }
+function fillavatarForm() {
+  const profileInfo = userInfo.getUserInfo();
+  profileImageInput.value = profileInfo.image;
 }
 
 editProfileButton.addEventListener("click", () => {
@@ -174,7 +196,7 @@ editProfileButton.addEventListener("click", () => {
 addPopupButton.addEventListener("click", () => addForm.open());
 
 changeProfileImageButton.addEventListener("click", () => {
-  fillProfileForm();
+  fillavatarForm();
 
   changeImageForm.open();
 });

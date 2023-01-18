@@ -22,19 +22,18 @@ class Card {
     this._imageElement.addEventListener("click", this._handleCardClick);
   }
 
-  _handleLikeButton = () => {
+  renderLikes = () => {
     if (this.isLiked()) {
       this._cardLikeButton.classList.add("card__like-button_filled");
     } else {
       this._cardLikeButton.classList.remove("card__like-button_filled");
     }
     this._cardLikes.textContent = this._likes.length;
-    //this._cardLikeButton.classList.toggle("card__like-button_filled");
   }
 
   updateLikes(likes) {
     this._likes = likes;
-    this._handleLikeButton();
+    this.renderLikes();
   }
 
   isLiked() {
@@ -64,7 +63,7 @@ class Card {
     this._imageElement.alt = this._name;
     cardTitle.textContent = this._name;
     this._setEventListeners();
-    this._handleLikeButton();
+    this.renderLikes();
 
     if (this._ownerId !== this._userId) {
       this._cardDeleteButton.remove();

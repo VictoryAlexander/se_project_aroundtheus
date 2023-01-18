@@ -116,6 +116,24 @@
           </form>
         </div>
       </div>
+      <div class="modal" id="change-image-modal">
+        <div>
+          <button type="button" class="modal__close-button"></button>
+          <form class="modal__container modal__container_change-image" id="change-image-form">
+            <h3 class="modal__container-title">Change Profile Picture</h3>
+            <input
+              id="profile-link"
+              type="url"
+              placeholder="Image link"
+              name="profile-link"
+              class="modal__container-input modal__container-input_description"
+              required
+            />
+            <span class="modal__error" id="profile-link-error"></span>
+            <button type="submit" class="modal__container-button" id="confirm-save">Save</button>
+          </form>
+        </div>
+      </div>
       <div class="modal" id="imageModal">
         <div class="modal__content">
           <button type="button" class="modal__close-button"></button>
@@ -129,23 +147,6 @@
           <form class="modal__container modal__container_delete-card">
             <h3 class="modal__container-title modal__container-title_confirm">Are you sure?</h3>
             <button type="submit" class="modal__container-button">Yes</button>
-          </form>
-        </div>
-      </div>
-      <div class="modal" id="change-image-modal">
-        <div class="modal__content">
-          <button type="button" class="modal__close-button"></button>
-          <form class="modal__container modal__container_change-image" id="change-image-form">
-            <h3 class="modal__container-title">Change Profile Picture</h3>
-            <input
-              id="profile-link"
-              type="url"
-              placeholder="Image link"
-              name="link"
-              class="modal__container-input modal__container-input_description"
-              required
-            />
-            <button type="submit" class="modal__container-button" id="confirm-save">Save</button>
           </form>
         </div>
       </div>
