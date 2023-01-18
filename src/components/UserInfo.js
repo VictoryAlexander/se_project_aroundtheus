@@ -8,7 +8,12 @@ class UserInfo {
   getUserInfo() {
     return {
       name: this._name.textContent,
-      about: this._job.textContent,
+      about: this._job.textContent
+    }
+  }
+
+  getAvatar() {
+    return {
       image: this._image.src
     }
   }

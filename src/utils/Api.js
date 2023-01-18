@@ -87,7 +87,7 @@ class Api {
   } 
 
   getAppInfo = () => {
-    return Promise.all([this.getInitialCards(), this.getUserInfo()]);
+    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
   }
 }
 

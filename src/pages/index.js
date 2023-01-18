@@ -79,7 +79,14 @@ const createCard = (item) => {
 
 api
   .getAppInfo()
-  .then(([cardRes, userRes]) => {
+  .then(([userRes, cardRes]) => {
+    userInfo.setUserInfo({
+      name: userRes.name,
+      about: userRes.about
+    });
+    userInfo.setImage(userRes.avatar);
+    userId = userRes._id;
+    cardRes.reverse();
     cardSection = new Section({
       items: cardRes,
       renderer: (data) => {
@@ -90,12 +97,6 @@ api
     selectors.cardList
     )
     cardSection.renderItems();
-    userInfo.setUserInfo({
-      name: userRes.name,
-      about: userRes.about
-    });
-    userInfo.setImage(userRes.avatar);
-    userId = userRes._id;
   })
   .catch((err) => console.log(err))
 
@@ -115,7 +116,6 @@ const editForm = new PopupWithForm({
       .then(() => {
         userInfo.setUserInfo(values);
         editForm.close();
-        editFormValidator.toggleButtonState();
       })
       .catch((err) => console.log(err))
       .finally(() => {
@@ -133,7 +133,6 @@ const addForm = new PopupWithForm({
       .then((res) => {
         renderCard(res);
         addForm.close();
-        addFormValidator.toggleButtonState();
       })
       .catch((err) => console.log(err))
       .finally(() => {
@@ -152,7 +151,6 @@ const changeImageForm = new PopupWithForm({
       .then(() => {
         userInfo.setImage(item);
         changeImageForm.close();
-        changeFormValidator.toggleButtonState();
       })
       .catch((err) => console.log(err))
       .finally(() => {
@@ -183,20 +181,23 @@ function fillProfileForm() {
   profileAboutInput.value = profileInfo.about;
 }
 
-function fillavatarForm() {
-  const profileInfo = userInfo.getUserInfo();
-  profileImageInput.value = profileInfo.image;
+function fillAvatarForm() {
+  const avatarInfo = userInfo.getAvatar();
+  profileImageInput.value = avatarInfo.image;
 }
 
 editProfileButton.addEventListener("click", () => {
   fillProfileForm();
-  
+  editFormValidator.toggleButtonState();
   editForm.open();
 });
-addPopupButton.addEventListener("click", () => addForm.open());
+addPopupButton.addEventListener("click", () => {
+  addFormValidator.toggleButtonState();
+  addForm.open()
+});
 
 changeProfileImageButton.addEventListener("click", () => {
-  fillavatarForm();
-
+  fillAvatarForm();
+  changeFormValidator.toggleButtonState();
   changeImageForm.open();
 });
