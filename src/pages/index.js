@@ -145,12 +145,11 @@ const addForm = new PopupWithForm({
 const changeImageForm = new PopupWithForm({
   popupSelector: selectors.changeImagePopup,
   handleFormSubmit: (item) => {
-    console.log(item)
     changeImageForm.showLoading()
     api
       .updateImage(item)
       .then(() => {
-        userInfo.setImage(item);
+        userInfo.setImage(item.avatar);
         changeImageForm.close();
       })
       .catch((err) => console.log(err))
