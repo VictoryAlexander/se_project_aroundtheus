@@ -145,9 +145,10 @@ const addForm = new PopupWithForm({
 const changeImageForm = new PopupWithForm({
   popupSelector: selectors.changeImagePopup,
   handleFormSubmit: (item) => {
+    console.log(item)
     changeImageForm.showLoading()
     api
-      .updateImage(item) 
+      .updateImage(item)
       .then(() => {
         userInfo.setImage(item);
         changeImageForm.close();
@@ -172,7 +173,7 @@ const editProfileButton = document.querySelector(".profile__info-button");
 const addPopupButton = document.querySelector(".profile__button");
 const profileNameInput = document.querySelector("#name");
 const profileAboutInput = document.querySelector("#description");
-const profileImageInput = document.querySelector("#profile-link");
+const profileImageInput = document.querySelector("#avatar");
 const changeProfileImageButton = document.querySelector(".profile__overlay-button");
 
 function fillProfileForm() {

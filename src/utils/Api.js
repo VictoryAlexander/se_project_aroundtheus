@@ -80,7 +80,7 @@ class Api {
       method: "PATCH",
       headers: this.headers,
       body: JSON.stringify({
-        avatar: data
+        avatar: data.avatar
       }),
     })
     .then(this._processResponse)
